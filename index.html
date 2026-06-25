@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ZroEffortBot turns Etsy trend signals into approval-ready Printify products, listing drafts, margin checks, and fulfillment tasks."
+    />
+    <title>ZroEffortBot | Trend-to-Launch Store AI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand-block" href="#top" aria-label="ZroEffortBot home">
+        <span class="brand-mark">ZB</span>
+        <span>
+          <strong>ZroEffortBot</strong>
+          <small>Trend-to-launch store AI</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#platform">Platform</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#live-demo">Live Demo</a>
+        <a href="#approvals">Approvals</a>
+      </nav>
+
+      <a class="header-cta" href="#live-demo">Open Operator</a>
+    </header>
+
+    <main id="top">
+      <section class="hero-section" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Official operator console</p>
+          <h1 id="page-title">Launch Etsy products from trend signals without losing human control.</h1>
+          <p>
+            ZroEffortBot studies page trends, drafts original product concepts, writes
+            listing copy, estimates margins, and prepares Printify tasks while keeping publishing
+            and customer actions in an approval queue.
+          </p>
+          <div class="hero-actions">
+            <button id="startDemo" type="button">Start Live Demo</button>
+            <a class="text-link" href="#platform">See platform</a>
+          </div>
+        </div>
+
+        <div class="product-visual" aria-label="Product preview">
+          <div class="visual-topbar">
+            <span></span>
+            <span></span>
+            <span></span>
+            <strong>Store Launch Board</strong>
+          </div>
+          <div class="visual-grid">
+            <div class="visual-panel trend-preview">
+              <small>Trend Signal</small>
+              <strong>Personalized teacher tote</strong>
+              <div class="score-ring">92</div>
+            </div>
+            <div class="visual-panel">
+              <small>Margin</small>
+              <strong>$9.51 profit</strong>
+              <div class="mini-bar"><span></span></div>
+            </div>
+            <div class="visual-panel wide-preview">
+              <small>Approval Queue</small>
+              <strong>Review Etsy listing draft</strong>
+              <p>Publishing, messages, and account changes wait for approval.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="status-band" aria-label="Store status">
+        <div>
+          <span id="trendCount">0</span>
+          <small>Trend signals analyzed</small>
+        </div>
+        <div>
+          <span id="draftCount">0</span>
+          <small>Product drafts prepared</small>
+        </div>
+        <div>
+          <span id="approvalCount">0</span>
+          <small>Actions awaiting review</small>
+        </div>
+      </section>
+
+      <section class="content-section" id="platform">
+        <div class="section-intro">
+          <p class="eyebrow">Platform</p>
+          <h2>One command center for product research, listing prep, and Printify execution.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon">01</span>
+            <h3>Trend Intelligence</h3>
+            <p>
+              Paste Etsy page text, competitor notes, or niche keywords and score product concepts
+              by demand signals, personalization hooks, and IP risk.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">02</span>
+            <h3>Listing Studio</h3>
+            <p>
+              Generate titles, descriptions, tag sets, photo checklists, personalization notes, and
+              product angles designed for review before Etsy publishing.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">03</span>
+            <h3>Printify Launch Queue</h3>
+            <p>
+              Convert approved ideas into provider-selection tasks, production checks, sample-order
+              steps, pricing math, and fulfillment review items.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="workflow-section" id="workflow">
+        <div class="section-intro">
+          <p class="eyebrow">Workflow</p>
+          <h2>Built for a seller who wants speed, but still wants the final say.</h2>
+        </div>
+        <div class="workflow-steps">
+          <article>
+            <span>Research</span>
+            <h3>Find product directions</h3>
+            <p>Extract trend phrases from Etsy observations and detect risky protected terms.</p>
+          </article>
+          <article>
+            <span>Create</span>
+            <h3>Build launch drafts</h3>
+            <p>Turn top signals into product ideas, listing copy, mockup needs, and pricing checks.</p>
+          </article>
+          <article>
+            <span>Review</span>
+            <h3>Approve external actions</h3>
+            <p>Keep listings, customer replies, Printify tasks, and account changes gated.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="operator-section" id="live-demo">
+        <div class="section-intro">
+          <p class="eyebrow">Live Demo</p>
+          <h2>Run the operator locally.</h2>
+        </div>
+
+        <section class="panel wide" id="trend-lab">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Trend Lab</p>
+              <h2>Extract design opportunities</h2>
+            </div>
+            <button class="secondary-button" id="loadSample" type="button">Load sample</button>
+          </div>
+
+          <label for="trendInput">Etsy page text, niche notes, product URLs, or trend keywords</label>
+          <textarea id="trendInput" rows="7" placeholder="Example: coquette bow sweatshirt, western bachelorette shirt, pickleball mom mug, personalized teacher tote, groovy floral phone case..."></textarea>
+
+          <div class="control-row">
+            <select id="nicheSelect" aria-label="Primary niche">
+              <option>General gifts</option>
+              <option>Apparel</option>
+              <option>Home decor</option>
+              <option>Teacher gifts</option>
+              <option>Wedding and bachelorette</option>
+              <option>Pet owners</option>
+            </select>
+            <select id="riskSelect" aria-label="Trademark risk tolerance">
+              <option>Strict trademark filter</option>
+              <option>Moderate trademark filter</option>
+            </select>
+            <button id="analyzeTrends" type="button">Analyze Trends</button>
+          </div>
+
+          <div class="trend-board" id="trendBoard" aria-live="polite"></div>
+        </section>
+
+        <div class="workspace-grid">
+          <section class="panel" id="pipeline">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Product Pipeline</p>
+                <h2>Draft launch candidates</h2>
+              </div>
+              <button id="buildPipeline" type="button">Build</button>
+            </div>
+            <div class="pipeline-list" id="pipelineList"></div>
+          </section>
+
+          <section class="panel" id="listing-studio">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Listing Studio</p>
+                <h2>Generate Etsy draft</h2>
+              </div>
+              <button id="generateListing" type="button">Generate</button>
+            </div>
+            <label for="productFocus">Product focus</label>
+            <input id="productFocus" type="text" placeholder="Personalized retro teacher sweatshirt" />
+            <label for="audienceFocus">Buyer audience</label>
+            <input id="audienceFocus" type="text" placeholder="Gift buyers, teachers, classroom staff" />
+            <div class="output-card" id="listingOutput"></div>
+          </section>
+
+          <section class="panel" id="printify">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Printify Queue</p>
+                <h2>Production checklist</h2>
+              </div>
+              <button id="queuePrintify" type="button">Queue Task</button>
+            </div>
+            <div class="form-grid">
+              <label>
+                Base cost
+                <input id="baseCost" type="number" value="13.75" min="0" step="0.25" />
+              </label>
+              <label>
+                Shipping
+                <input id="shippingCost" type="number" value="5.25" min="0" step="0.25" />
+              </label>
+              <label>
+                Etsy price
+                <input id="salePrice" type="number" value="32.00" min="0" step="0.50" />
+              </label>
+            </div>
+            <div class="margin-meter">
+              <div id="marginBar"></div>
+            </div>
+            <p class="metric-line" id="marginText"></p>
+            <div class="task-list" id="printifyTasks"></div>
+          </section>
+
+          <section class="panel" id="orders">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Orders and Messages</p>
+                <h2>Triage assistant</h2>
+              </div>
+              <button id="triageOrder" type="button">Triage</button>
+            </div>
+            <textarea id="orderInput" rows="5" placeholder="Paste an order note or customer message: Can you make this in navy and ship before July 10?"></textarea>
+            <div class="output-card" id="orderOutput"></div>
+          </section>
+
+          <section class="panel wide" id="approvals">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Approval Queue</p>
+                <h2>Actions requiring review</h2>
+              </div>
+              <button class="secondary-button" id="clearApproved" type="button">Clear approved</button>
+            </div>
+            <div class="approval-list" id="approvalList"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="closing-section">
+        <div>
+          <p class="eyebrow">Seller control</p>
+          <h2>Designed to prepare work, not secretly run your store.</h2>
+          <p>
+            Connect Etsy and Printify through a secure backend when you are ready. Until then, the
+            site works locally as a planning and review console.
+          </p>
+        </div>
+        <a class="header-cta" href="#approvals">Review actions</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>ZroEffortBot</span>
+      <span>Approval-first AI for print-on-demand sellers.</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
