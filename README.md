@@ -20,11 +20,28 @@ This is a static website and can be hosted without a build step.
 
 - Netlify: drag this folder into Netlify Drop, or connect the repo. Publish directory is `.`.
 - Vercel: import the repo as a static project. No build command is required.
-- GitHub Pages: push this folder to a GitHub repo and publish from the root of the default branch.
+- GitHub Pages: publish from the `gh-pages` branch, root folder.
+
+## Custom Domain and HTTPS
+
+The production domain is `zroeffect.com`. DNS and certificate issuance are completed in the hosting provider after the site is deployed.
+
+Recommended setup:
+
+1. Add `zroeffect.com` as the custom domain in the selected host.
+2. Point DNS at that host:
+   - Netlify apex: add an `ALIAS`, `ANAME`, or flattened `CNAME` for `zroeffect.com` to the Netlify site hostname.
+   - Vercel apex: add an `A` record for `zroeffect.com` to `76.76.21.21`.
+   - GitHub Pages apex: add `A` records for `zroeffect.com` to `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`.
+   - Optional GitHub Pages IPv6: add `AAAA` records for `zroeffect.com` to `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, and `2606:50c0:8003::153`.
+3. Optional: add `www.zroeffect.com` as an alias and point it with a `CNAME` to `devincolvin-pixel.github.io`.
+4. Enable the host's automatic HTTPS certificate for `zroeffect.com`.
+5. Confirm `https://zroeffect.com/` loads successfully before using it as the Etsy app website URL.
 
 Included hosting files:
 
 - `.nojekyll` for GitHub Pages static hosting.
+- `CNAME` for the GitHub Pages custom domain.
 - `netlify.toml` for Netlify publish settings and basic security headers.
 - `vercel.json` for Vercel clean URLs and basic security headers.
 
