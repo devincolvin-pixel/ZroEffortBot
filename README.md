@@ -1,8 +1,8 @@
-# ZroEffortBot Website
+# ZroEffortSales Website
 
 A dependency-free official product website and local AI copilot for turning Etsy trend signals into reviewed Printify product launches.
 
-The site presents ZroEffortBot as a polished product with a live operator demo built into the page. It is intentionally review-first: it can draft product ideas, listing copy, Printify setup tasks, customer replies, and approval checklists, but it does not publish listings, send messages, place orders, scrape Etsy, or change account settings on its own.
+The site presents ZroEffortSales as a polished product with a live operator demo built into the page. It is intentionally review-first: it can draft product ideas, listing copy, Printify setup tasks, customer replies, and approval checklists, but it does not publish listings, send messages, place orders, scrape Etsy, or change account settings on its own.
 
 ## Run
 
@@ -31,12 +31,14 @@ Included hosting files:
 ## Workflow
 
 1. Open the site and use the hero call-to-action or scroll to the live demo.
-2. Paste Etsy page text, trend notes, product URLs, or keyword observations into Trend Lab.
-3. Analyze trends to score product directions and flag watched trademark terms.
-4. Build the product pipeline from the strongest signals.
-5. Generate listing drafts and photo checklists.
-6. Queue Printify setup tasks and check estimated margin.
-7. Review every consequential action in the approval queue before using Etsy or Printify.
+2. Set the number of products to list per week.
+3. Use the Printify and Etsy connection controls to prepare the secure connector workflow.
+4. Paste Etsy page text, trend notes, product URLs, or keyword observations into Trend Lab.
+5. Analyze trends to score product directions and flag watched trademark terms.
+6. Build the launch plan or product pipeline from the strongest signals.
+7. Generate listing drafts and photo checklists.
+8. Queue Printify product creation tasks and check estimated margin.
+9. Review every consequential action in the approval queue before using Etsy or Printify.
 
 ## Safety Boundary
 

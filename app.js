@@ -1,15 +1,21 @@
 const state = {
   trends: [],
   drafts: [],
+  weeklyTarget: 5,
+  connections: {
+    printify: false,
+    etsy: false,
+  },
   approvals: [
     {
       id: crypto.randomUUID(),
       title: "Connect Etsy and Printify accounts",
-      detail: "Create API credentials or manual workflow links before live operations.",
+      detail: "Use secure backend connectors before live product creation, upload, publishing, or customer actions.",
       status: "pending",
     },
   ],
   printifyTasks: [],
+  launchPlan: [],
 };
 
 const trademarkWatch = [
@@ -131,6 +137,7 @@ function analyzeTrends() {
 }
 
 function buildPipeline() {
+  state.weeklyTarget = getWeeklyTarget();
   const source = state.trends.length ? state.trends : trendSeed.map((signal) => ({
     id: crypto.randomUUID(),
     signal,
@@ -142,15 +149,10 @@ function buildPipeline() {
     color: palette[0],
   }));
 
-  state.drafts = source.slice(0, 5).map((trend) => ({
-    id: crypto.randomUUID(),
-    title: `${trend.title} ${trend.productType === "apparel" ? "Design" : "Bundle"}`,
-    trendId: trend.id,
-    productType: trend.productType,
-    angle: designAngle(trend.signal),
-    price: suggestedPrice(trend.productType),
-    status: "draft",
-  }));
+  state.drafts = Array.from({ length: state.weeklyTarget }, (_, index) => {
+    const trend = source[index % source.length];
+    return makeDraftForTrend(trend, Math.floor(index / source.length));
+  });
 
   addApproval(
     "Review product launch pipeline",
@@ -177,6 +179,24 @@ function suggestedPrice(productType) {
     "phone case": 22,
   };
   return prices[productType] || 29;
+}
+
+function getWeeklyTarget() {
+  const value = Number($("#weeklyTarget")?.value || state.weeklyTarget);
+  return Math.max(1, Math.min(50, Math.round(value || 1)));
+}
+
+function makeDraftForTrend(trend, index) {
+  const variantLabel = index > 0 ? ` ${index + 1}` : "";
+  return {
+    id: crypto.randomUUID(),
+    title: `${trend.title}${variantLabel} ${trend.productType === "apparel" ? "Design" : "Bundle"}`,
+    trendId: trend.id,
+    productType: trend.productType,
+    angle: designAngle(trend.signal),
+    price: suggestedPrice(trend.productType),
+    status: "draft",
+  };
 }
 
 function generateListing() {
@@ -232,10 +252,72 @@ function queuePrintifyTask() {
     id: crypto.randomUUID(),
     title: `Create Printify product for ${product}`,
     detail:
-      "Select provider, upload original artwork, set variants, confirm production cost, order a sample, and sync only after review.",
+      "Generate original artwork from trend analysis, select a Printify blueprint/provider, set variants, confirm production cost, order a sample, then queue Etsy upload after review.",
   };
   state.printifyTasks.unshift(task);
-  addApproval("Approve Printify setup", task.detail);
+  addApproval("Approve Printify product creation", task.detail);
+  render();
+}
+
+function connectPlatform(platform) {
+  state.connections[platform] = true;
+  const label = platform === "printify" ? "Printify" : "Etsy";
+  addApproval(
+    `Verify ${label} connector`,
+    `${label} is marked connected in this demo. A production build should complete OAuth/API token exchange on a backend, not in browser JavaScript.`
+  );
+  render();
+}
+
+function ensureTrendSource() {
+  if (!state.trends.length) {
+    analyzeTrends();
+  }
+}
+
+function buildLaunchPlan() {
+  state.weeklyTarget = getWeeklyTarget();
+  ensureTrendSource();
+
+  const source = state.trends.length
+    ? state.trends
+    : trendSeed.map((signal, index) => ({
+        id: crypto.randomUUID(),
+        signal,
+        title: titleCase(signal),
+        productType: productTypeFor(signal, $("#nicheSelect").value),
+        score: scoreSignal(signal, $("#nicheSelect").value),
+        flags: [],
+        tags: ["starter"],
+        color: palette[index % palette.length],
+      }));
+
+  state.drafts = Array.from({ length: state.weeklyTarget }, (_, index) => {
+    const trend = source[index % source.length];
+    return makeDraftForTrend(trend, Math.floor(index / source.length));
+  });
+
+  state.launchPlan = state.drafts.map((draft, index) => ({
+    id: crypto.randomUUID(),
+    weekSlot: index + 1,
+    title: draft.title,
+    detail: `${draft.angle}. Create original artwork, generate mockups in Printify, prepare Etsy listing copy, then queue upload for approval.`,
+  }));
+
+  state.printifyTasks = [
+    ...state.launchPlan.map((item) => ({
+      id: item.id,
+      title: `Printify product ${item.weekSlot}: ${item.title}`,
+      detail:
+        "Use the trend signal to create an original product design, select product type/provider, configure variants, and prepare the Etsy sync package.",
+    })),
+    ...state.printifyTasks,
+  ];
+
+  addApproval(
+    `Approve ${state.weeklyTarget}-product weekly launch plan`,
+    "Trend analysis produced custom Printify product concepts and Etsy upload tasks. Review designs, IP risk, pricing, and listings before any external publish action."
+  );
   render();
 }
 
@@ -350,6 +432,45 @@ function renderPipeline() {
   });
 }
 
+function renderConnections() {
+  const printifyStatus = $("#printifyStatus");
+  const etsyStatus = $("#etsyStatus");
+  const weeklyTarget = $("#weeklyTarget");
+  const visualWeeklyTarget = $("#visualWeeklyTarget");
+  const launchPlanOutput = $("#launchPlanOutput");
+
+  if (weeklyTarget) weeklyTarget.value = state.weeklyTarget;
+  if (visualWeeklyTarget) visualWeeklyTarget.textContent = state.weeklyTarget;
+
+  if (printifyStatus) {
+    printifyStatus.textContent = state.connections.printify ? "Connected" : "Not connected";
+    printifyStatus.classList.toggle("connected", state.connections.printify);
+  }
+
+  if (etsyStatus) {
+    etsyStatus.textContent = state.connections.etsy ? "Connected" : "Not connected";
+    etsyStatus.classList.toggle("connected", state.connections.etsy);
+  }
+
+  if (!launchPlanOutput) return;
+
+  if (!state.launchPlan.length) {
+    launchPlanOutput.textContent =
+      "Set a weekly listing target, connect Printify and Etsy through secure connectors, then build a launch plan from trend analysis.";
+    return;
+  }
+
+  launchPlanOutput.textContent = [
+    `Weekly target: ${state.weeklyTarget} products`,
+    `Printify connector: ${state.connections.printify ? "ready for backend sync" : "needs connection"}`,
+    `Etsy connector: ${state.connections.etsy ? "ready for backend upload" : "needs connection"}`,
+    "",
+    ...state.launchPlan.map(
+      (item) => `${item.weekSlot}. ${item.title}\n   ${item.detail}`
+    ),
+  ].join("\n");
+}
+
 function renderPrintifyTasks() {
   const list = $("#printifyTasks");
   if (!state.printifyTasks.length) {
@@ -403,6 +524,7 @@ function updateCounts() {
 function render() {
   renderTrends();
   renderPipeline();
+  renderConnections();
   renderPrintifyTasks();
   renderApprovals();
   updateCounts();
@@ -423,6 +545,13 @@ $("#startDemo")?.addEventListener("click", startDemo);
 $("#loadSample").addEventListener("click", loadSample);
 $("#analyzeTrends").addEventListener("click", analyzeTrends);
 $("#buildPipeline").addEventListener("click", buildPipeline);
+$("#buildLaunchPlan")?.addEventListener("click", buildLaunchPlan);
+$("#connectPrintify")?.addEventListener("click", () => connectPlatform("printify"));
+$("#connectEtsy")?.addEventListener("click", () => connectPlatform("etsy"));
+$("#weeklyTarget")?.addEventListener("input", () => {
+  state.weeklyTarget = getWeeklyTarget();
+  renderConnections();
+});
 $("#generateListing").addEventListener("click", generateListing);
 $("#queuePrintify").addEventListener("click", queuePrintifyTask);
 $("#triageOrder").addEventListener("click", triageOrder);

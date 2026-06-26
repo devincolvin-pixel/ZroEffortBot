@@ -469,6 +469,45 @@ textarea {
   margin-top: 12px;
 }
 
+.planning-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(180px, 0.7fr) repeat(2, minmax(220px, 1fr));
+}
+
+.connection-card {
+  align-items: center;
+  background: #fbfdfb;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  min-height: 86px;
+  padding: 14px;
+}
+
+.connection-card strong,
+.status-pill {
+  display: block;
+}
+
+.status-pill {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+.status-pill.connected {
+  color: var(--green);
+}
+
+.launch-output {
+  margin-top: 14px;
+}
+
 .trend-board {
   display: grid;
   gap: 14px;
@@ -704,9 +743,15 @@ textarea {
   .visual-grid,
   .status-band,
   .control-row,
+  .planning-grid,
   .form-grid,
   .trend-board {
     grid-template-columns: 1fr;
+  }
+
+  .connection-card {
+    align-items: stretch;
+    display: grid;
   }
 
   .wide-preview,

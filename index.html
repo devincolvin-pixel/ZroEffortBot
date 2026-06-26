@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="ZroEffortBot turns Etsy trend signals into approval-ready Printify products, listing drafts, margin checks, and fulfillment tasks."
+      content="ZroEffortSales turns Etsy trend signals into approval-ready Printify products, listing drafts, margin checks, and fulfillment tasks."
     />
-    <title>ZroEffortBot | Trend-to-Launch Store AI</title>
+    <title>ZroEffortSales | Trend-to-Launch Store AI</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="site-header">
-      <a class="brand-block" href="#top" aria-label="ZroEffortBot home">
-        <span class="brand-mark">ZB</span>
+      <a class="brand-block" href="#top" aria-label="ZroEffortSales home">
+        <span class="brand-mark">ZS</span>
         <span>
-          <strong>ZroEffortBot</strong>
+          <strong>ZroEffortSales</strong>
           <small>Trend-to-launch store AI</small>
         </span>
       </a>
@@ -23,6 +23,7 @@
       <nav class="site-nav" aria-label="Primary">
         <a href="#platform">Platform</a>
         <a href="#workflow">Workflow</a>
+        <a href="#connections">Connections</a>
         <a href="#live-demo">Live Demo</a>
         <a href="#approvals">Approvals</a>
       </nav>
@@ -36,9 +37,9 @@
           <p class="eyebrow">Official operator console</p>
           <h1 id="page-title">Launch Etsy products from trend signals without losing human control.</h1>
           <p>
-            ZroEffortBot studies page trends, drafts original product concepts, writes
-            listing copy, estimates margins, and prepares Printify tasks while keeping publishing
-            and customer actions in an approval queue.
+            ZroEffortSales studies page trends, drafts original product concepts, writes
+            listing copy, estimates margins, prepares Printify products, and plans Etsy uploads
+            around your weekly listing target.
           </p>
           <div class="hero-actions">
             <button id="startDemo" type="button">Start Live Demo</button>
@@ -60,8 +61,8 @@
               <div class="score-ring">92</div>
             </div>
             <div class="visual-panel">
-              <small>Margin</small>
-              <strong>$9.51 profit</strong>
+              <small>Weekly Listing Target</small>
+              <strong><span id="visualWeeklyTarget">5</span> products</strong>
               <div class="mini-bar"><span></span></div>
             </div>
             <div class="visual-panel wide-preview">
@@ -115,7 +116,7 @@
             <h3>Printify Launch Queue</h3>
             <p>
               Convert approved ideas into provider-selection tasks, production checks, sample-order
-              steps, pricing math, and fulfillment review items.
+              steps, pricing math, product creation plans, and Etsy upload review items.
             </p>
           </article>
         </div>
@@ -150,6 +151,42 @@
           <p class="eyebrow">Live Demo</p>
           <h2>Run the operator locally.</h2>
         </div>
+
+        <section class="panel wide" id="connections">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Launch Controls</p>
+              <h2>Set weekly product volume and connect platforms</h2>
+            </div>
+            <button id="buildLaunchPlan" type="button">Build Launch Plan</button>
+          </div>
+
+          <div class="planning-grid">
+            <label>
+              Products listed per week
+              <input id="weeklyTarget" type="number" value="5" min="1" max="50" step="1" />
+            </label>
+            <div class="connection-card">
+              <div>
+                <strong>Printify</strong>
+                <span class="status-pill" id="printifyStatus">Not connected</span>
+              </div>
+              <button class="secondary-button" id="connectPrintify" type="button">Connect Printify</button>
+            </div>
+            <div class="connection-card">
+              <div>
+                <strong>Etsy</strong>
+                <span class="status-pill" id="etsyStatus">Not connected</span>
+              </div>
+              <button class="secondary-button" id="connectEtsy" type="button">Connect Etsy</button>
+            </div>
+          </div>
+
+          <div class="output-card launch-output" id="launchPlanOutput">
+            Set a weekly listing target, connect Printify and Etsy through secure connectors, then
+            build a launch plan from trend analysis.
+          </div>
+        </section>
 
         <section class="panel wide" id="trend-lab">
           <div class="section-heading">
@@ -213,7 +250,7 @@
             <div class="section-heading">
               <div>
                 <p class="eyebrow">Printify Queue</p>
-                <h2>Production checklist</h2>
+                <h2>Product creation checklist</h2>
               </div>
               <button id="queuePrintify" type="button">Queue Task</button>
             </div>
@@ -268,8 +305,8 @@
           <p class="eyebrow">Seller control</p>
           <h2>Designed to prepare work, not secretly run your store.</h2>
           <p>
-            Connect Etsy and Printify through a secure backend when you are ready. Until then, the
-            site works locally as a planning and review console.
+            Connect Etsy and Printify through secure backend connectors when you are ready. Until
+            then, the site works locally as a planning and review console for weekly product launches.
           </p>
         </div>
         <a class="header-cta" href="#approvals">Review actions</a>
@@ -277,7 +314,7 @@
     </main>
 
     <footer class="site-footer">
-      <span>ZroEffortBot</span>
+      <span>ZroEffortSales</span>
       <span>Approval-first AI for print-on-demand sellers.</span>
     </footer>
 
